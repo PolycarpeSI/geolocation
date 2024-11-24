@@ -17,7 +17,7 @@ pipeline{
                 }
             }
         }
-        stage("upload_artifact"){
+        stage("upload-artifact"){
             steps{
                 sh 'curl -uadmin:APBZrJk8pn85wcNmx47z1AoGCFp -T \
                 target/bio*.jar \
