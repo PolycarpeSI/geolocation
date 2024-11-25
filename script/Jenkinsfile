@@ -4,6 +4,19 @@ pipeline{
         maven 'M2_HOME'
     }
     stages{
+        stage("sonar_scan"){
+            steps{
+                sh "mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=PolycarpeSI_geolocation"
+            }
+            post{
+                success{
+                    echo "Success scan"
+                }
+                failure{
+                    echo "Fail scan"
+                }
+            }
+        }
         stage("maven"){
             steps{
                 sh "mvn clean validate compile install test package"
