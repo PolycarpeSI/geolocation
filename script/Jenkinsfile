@@ -35,9 +35,9 @@ pipeline{
         }
         stage("sonar_scan"){
             steps{
-                
+
                 withSonarQubeEnv('sonarQube'){
-                    sh "mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=PolycarpeSI_geolocation"
+                    sh "mvn -D verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=PolycarpeSI_geolocation"
                 }                
             }
             post{
