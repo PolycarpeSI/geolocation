@@ -22,7 +22,7 @@ pipeline{
             steps{
                 sh 'curl -uadmin:APBZrJk8pn85wcNmx47z1AoGCFp -T \
                 target/bio*.jar \
-                "http://ec2-54-83-125-188.compute-1.amazonaws.com:8081/artifactory/geolocation/geo/bio_${BUILD_ID}.jar"'
+                "http://ec2-35-175-173-99.compute-1.amazonaws.com:8081/artifactory/geolocation/geo/bio_${BUILD_ID}.jar"'
             }
             post{
                 success{
