@@ -4,7 +4,23 @@ pipeline{
         maven 'M2_HOME'
     }
     stages{
-        
+        /*stage("sonar_scan"){
+            steps{
+
+                withSonarQubeEnv('sonarQube'){
+                    sh "mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar\
+                     -Dsonar.projectKey=PolycarpeSI_geolocation "
+                }                
+            }
+            post{
+                success{
+                    echo "Success scan"
+                }
+                failure{
+                    echo "Fail scan"
+                }
+            }
+        }*/
         stage("maven"){
             steps{
                 sh "mvn clean validate compile install test package"
@@ -22,7 +38,7 @@ pipeline{
             steps{
                 sh 'curl -uadmin:APBZrJk8pn85wcNmx47z1AoGCFp -T \
                 target/bio*.jar \
-                "http://ec2-35-175-173-99.compute-1.amazonaws.com:8081/artifactory/geolocation/geo/bio_${BUILD_ID}.jar"'
+                "http://ec2-52-90-97-227.compute-1.amazonaws.com:8081/artifactory/geolocation/geo/bio_${BUILD_ID}.jar"'
             }
             post{
                 success{
@@ -30,22 +46,6 @@ pipeline{
                 }
                 failure{
                     echo "Fail upload artifact"
-                }
-            }
-        }
-        stage("sonar_scan"){
-            steps{
-
-                withSonarQubeEnv('sonarQube'){
-                    sh "mvn -D verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=PolycarpeSI_geolocation"
-                }                
-            }
-            post{
-                success{
-                    echo "Success scan"
-                }
-                failure{
-                    echo "Fail scan"
                 }
             }
         }
