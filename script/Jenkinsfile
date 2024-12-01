@@ -65,5 +65,46 @@ pipeline{
                 }
             }
         }
+        stage('docker-build-image'){
+            steps{
+                sh 'docker build -t utc-app-dev.v.${BUILD_ID} .'
+            }
+            post{
+                success{
+                    echo "Successful build"
+                }
+                failure{
+                    echo "Fail build"
+                }
+            }
+        }
+        stage('docker-tag-image'){
+            steps{
+                sh 'docker tag utc-app:latest \
+                099321366213.dkr.ecr.us-east-1.amazonaws.com/utc-app-dev:latest'
+                sh 'docker tag utc-app:latest \
+                099321366213.dkr.ecr.us-east-1.amazonaws.com/utc-app-dev:v.${BUILD_ID}'
+            post{
+                success{
+                    echo "Successful tag"
+                }
+                failure{
+                    echo "Fail tag"
+                }
+            }
+        }
+        stage('docker-push-image'){
+            steps{
+                sh 'docker push 099321366213.dkr.ecr.us-east-1.amazonaws.com/utc-app:latest'
+                sh 'docker push 099321366213.dkr.ecr.us-east-1.amazonaws.com/utc-app:v.${BUILD_ID}'
+            post{
+                success{
+                    echo "Successful push"
+                }
+                failure{
+                    echo "Fail push"
+                }
+            }
+        }
     }
 }
