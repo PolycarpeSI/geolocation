@@ -84,6 +84,7 @@ pipeline{
                 099321366213.dkr.ecr.us-east-1.amazonaws.com/utc-app-dev:latest'
                 sh 'docker tag utc-app:latest \
                 099321366213.dkr.ecr.us-east-1.amazonaws.com/utc-app-dev:v.${BUILD_ID}'
+            }
             post{
                 success{
                     echo "Successful tag"
@@ -97,6 +98,7 @@ pipeline{
             steps{
                 sh 'docker push 099321366213.dkr.ecr.us-east-1.amazonaws.com/utc-app:latest'
                 sh 'docker push 099321366213.dkr.ecr.us-east-1.amazonaws.com/utc-app:v.${BUILD_ID}'
+            }
             post{
                 success{
                     echo "Successful push"
