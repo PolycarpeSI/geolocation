@@ -67,7 +67,8 @@ pipeline{
         }
         stage('docker-build-image'){
             steps{
-                sh 'docker build -t utc-app.v.${BUILD_ID} .'
+                //sh 'docker build -t utc-app.v.${BUILD_ID} .'
+                sh 'docker build -t web-app .'
             }
             post{
                 success{
@@ -80,8 +81,9 @@ pipeline{
         }
         stage('docker-tag-image'){
             steps{
-                sh 'docker tag utc-app:latest 099321366213.dkr.ecr.us-east-1.amazonaws.com/utc-app:latest'
-                sh 'docker tag utc-app:latest 099321366213.dkr.ecr.us-east-1.amazonaws.com/utc-app:v.${BUILD_ID}'
+                sh 'docker tag web-app:latest 099321366213.dkr.ecr.us-east-1.amazonaws.com/web-app:latest'
+                //sh 'docker tag utc-app:latest 099321366213.dkr.ecr.us-east-1.amazonaws.com/utc-app:latest'
+                //sh 'docker tag utc-app:latest 099321366213.dkr.ecr.us-east-1.amazonaws.com/utc-app:v.${BUILD_ID}'
                 /*sh 'docker tag utc-app-dev:latest \
                 099321366213.dkr.ecr.us-east-1.amazonaws.com/utc-app-dev:latest'
                 sh 'docker tag utc-app-dev:latest \
@@ -98,8 +100,9 @@ pipeline{
         }
         stage('docker-push-image'){
             steps{
-                sh 'docker push 099321366213.dkr.ecr.us-east-1.amazonaws.com/utc-app:latest'
-                sh 'docker push 099321366213.dkr.ecr.us-east-1.amazonaws.com/utc-app:v.${BUILD_ID}'
+                sh 'docker push 099321366213.dkr.ecr.us-east-1.amazonaws.com/web-app:latest'
+                //sh 'docker push 099321366213.dkr.ecr.us-east-1.amazonaws.com/utc-app:latest'
+                //sh 'docker push 099321366213.dkr.ecr.us-east-1.amazonaws.com/utc-app:v.${BUILD_ID}'
             }
             post{
                 success{
