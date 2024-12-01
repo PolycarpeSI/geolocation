@@ -51,5 +51,19 @@ pipeline{
                 }
             }
         }
+        stage(docker-login){
+            steps{
+                sh 'aws ecr get-login-password --region us-east-1 | \
+                docker login --username AWS --password-stdin 099321366213.dkr.ecr.us-east-1.amazonaws.com'
+            }
+            post{
+                success{
+                    echo 'Successful login to docker'
+                }
+                failure{
+                    echo 'Fail login to docker'
+                }
+            }
+        }
     }
 }
