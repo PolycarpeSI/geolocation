@@ -23,6 +23,7 @@ pipeline{
         }*/
         stage("maven"){
             steps{
+                sh 'rm -rf target/bio*.jar || echo ""'
                 sh "mvn clean validate compile install test package"
             }
             post{
